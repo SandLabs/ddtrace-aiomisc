@@ -19,7 +19,7 @@ def _warp_trace_context(context: Context, func: Callable, *args) -> Any:
     return func(*args)
 
 
-async def run_in_executor(  # pylint: disable=too-many-arguments
+def run_in_executor(  # pylint: disable=too-many-arguments
     func: Callable,
     *args,
     context: Optional[Context] = None,
