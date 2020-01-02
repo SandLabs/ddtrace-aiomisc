@@ -1,2 +1,3 @@
 # ddtrace-aiomisc
-Python3.6+ ddtrace asyncio misc
+
+ddtrace miscellaneous utils
