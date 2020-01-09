@@ -41,8 +41,8 @@ def gather_in_executor(  # pylint: disable=too-many-arguments
 ) -> Coroutine:
     context = context or current_context()
     loop = loop or asyncio.get_event_loop()
-    _run_in_executor = partial(run_in_executor, func=func, context=context, executor=executor, loop=loop)
-    return asyncio.gather(*[_run_in_executor(*item if expand else item) for item in items])
+    _run_in_executor = partial(run_in_executor, context=context, executor=executor, loop=loop)
+    return asyncio.gather(*[_run_in_executor(func, *(item if expand else (item,))) for item in items])
 
 
 async def _async_warp_trace_context(context: Context, coroutine: Coroutine, *args) -> Any:
@@ -52,7 +52,9 @@ async def _async_warp_trace_context(context: Context, coroutine: Coroutine, *arg
 
 def gather(coroutine: Coroutine, items: List, expand: bool = False, context: Optional[Context] = None) -> Coroutine:
     context = context or current_context()
-    return asyncio.gather(*[_async_warp_trace_context(context, coroutine, *item if expand else item) for item in items])
+    return asyncio.gather(
+        *[_async_warp_trace_context(context, coroutine, *(item if expand else (item,))) for item in items]
+    )
 
 
 async def _async_warp_coroutine_trace_context(context: Context, coroutine: Coroutine) -> Any:

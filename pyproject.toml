@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ddtrace-aiomisc"
-version = "1.0.1"
+version = "1.0.2"
 description = "ddtrace miscellaneous utils"
 authors = ["m.shlyamov <m.shlyamov@yandex.com>"]
 homepage = "https://github.com/SandLabs/ddtrace-aiomisc"
